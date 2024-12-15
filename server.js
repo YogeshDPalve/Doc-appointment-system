@@ -1,10 +1,16 @@
 const express = require("express")
 const colors = require("colors")
 const morgan = require("morgan")
-const dotenv = require("dotenv")
+const dotenv = require("dotenv");
+const connectDB = require("./config/db");
+const userRouter = require('./routes/userRoutes')
 
 // dotenv configure
 dotenv.config();
+
+// mongodb connection
+connectDB();
+
 
 // rest object
 const app = express();
@@ -14,11 +20,7 @@ app.use(express.json())
 app.use(morgan('dev'))
 
 // routes
-app.get('/', (req, res) => {
-    res.status(200).json({
-        msg: 'server running'
-    })
-})
+app.use('/api/v1/user', userRouter);
 
 // port
 const port = process.env.PORT || 3000;
