@@ -4,7 +4,7 @@ const morgan = require("morgan")
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const userRouter = require('./routes/userRoutes')
-
+const bodyParser = require('body-parser');
 // dotenv configure
 dotenv.config();
 
@@ -14,16 +14,16 @@ connectDB();
 
 // rest object
 const app = express();
+// port
+const port = process.env.PORT || 3000;
 
 // middlewares
 app.use(express.json())
 app.use(morgan('dev'))
-
+app.use(bodyParser.json());
 // routes
 app.use('/api/v1/user', userRouter);
 
-// port
-const port = process.env.PORT || 3000;
 
 // listen port
 app.listen(port, () => {
