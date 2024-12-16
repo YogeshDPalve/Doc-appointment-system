@@ -4,27 +4,26 @@ import '../styles/RegisterStyles.css'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 
+axios.defaults.baseURL = 'http://localhost:4000'
 const Register = () => {
   const navigate = useNavigate();
   // form handler
   const onFinishHandler = async (values) => {
-    // console.log(values)
+    console.log(values)
     try {
-      const res = await axios.post('/api/v1/user/register', values);
-      if (res.data.success) {
+      const responce = await axios.post('/api/v1/user/register', values);
+      console.log()
+      if (responce.data.success) {
         message.success('User Registered Successfully!')
         navigate('/login')
       } else {
-        message.error(res.data.message);
+        message.error(responce.data.message);
       }
 
 
     } catch (error) {
       console.log(error);
       message.error('Something Went Wrong')
-      res.status(500).json({
-        message: 'Something Went Wrong'
-      })
     }
   }
   return (
