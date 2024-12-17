@@ -75,7 +75,7 @@ const loginController = async (req, res) => {
         }
     } catch (error) {
         res.status(500).send({
-            message: `Error in login CTRLRx ${error.message}`
+            message: `Error in login CTRLR ${error.message}`
         })
     }
 };
