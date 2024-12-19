@@ -11,12 +11,15 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        {loading && <Spinner />}
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        )}
       </BrowserRouter>
     </>
   );
