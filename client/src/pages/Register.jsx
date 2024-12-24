@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
+axios.defaults.baseURL = "http://localhost:4000";
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
