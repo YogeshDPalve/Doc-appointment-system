@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import Layout from "./../components/Layout";
+axios.defaults.baseURL = "http://localhost:4000";
+
 const HomePage = () => {
   // login user data
   const getUserData = async () => {
