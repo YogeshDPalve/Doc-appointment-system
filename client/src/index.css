@@ -13,3 +13,8 @@
   z-index: 990;
   background-color: #00000050;
 }
+.form-btn{
+  width: 200px !important;
+  height: 2.5rem;
+  margin-top: 1rem !important;
+}
