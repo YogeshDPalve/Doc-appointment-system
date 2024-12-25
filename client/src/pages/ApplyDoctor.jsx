@@ -13,9 +13,9 @@ const ApplyDoctor = () => {
       <Layout>
         <h1 className="text-center">Apply Doctor</h1>
         <Form Layout="vertical" onFinish={handleFinish} className="m-3">
-          <h4 className=" text-light">Personal Details</h4>
+          <h4 className=" text-dark mt-4">Personal Details</h4>
           <Row gutter={20}>
-            <Col xs={24} md={12} lg={8}>
+            <Col xs={24} md={24} lg={8} className="mt-2">
               <Form.Item
                 label="First Name"
                 name="firstName"
@@ -25,7 +25,7 @@ const ApplyDoctor = () => {
                 <Input type="text" placeholder="Your First Name" />
               </Form.Item>
             </Col>
-            <Col xs={24} md={12} lg={8}>
+            <Col xs={24} md={24} lg={8} className="mt-2">
               <Form.Item
                 label="Last Name"
                 name="lastName"
@@ -35,20 +35,21 @@ const ApplyDoctor = () => {
                 <Input type="text" placeholder="Your Last Name" />
               </Form.Item>
             </Col>
-            <Col xs={24} md={12} lg={8}>
+            <Col xs={24} md={24} lg={8} className="mt-2">
               <Form.Item
                 label="Phone Number"
                 name="phone"
                 required
+                maxLength={10}
+                minLength={10}
                 rules={[{ required: true }]}
               >
                 <Input type="text" placeholder="Your Contact No" />
               </Form.Item>
             </Col>
-            <Col xs={24} md={12} lg={8}>
+            <Col xs={24} md={24} lg={8} className="mt-2">
               <Form.Item
-                la
-                bel="Email"
+                label="Email"
                 name="email"
                 required
                 rules={[{ required: true }]}
@@ -56,10 +57,9 @@ const ApplyDoctor = () => {
                 <Input type="email" placeholder="Your Email" />
               </Form.Item>
             </Col>
-            <Col xs={24} md={12} lg={8}>
+            <Col xs={24} md={24} lg={8} className="mt-2">
               <Form.Item
-                la
-                bel="Website"
+                label="Website"
                 name="website"
                 required
                 rules={[{ required: false }]}
@@ -67,10 +67,9 @@ const ApplyDoctor = () => {
                 <Input type="text" placeholder="Your Website" />
               </Form.Item>
             </Col>
-            <Col xs={24} md={12} lg={8}>
+            <Col xs={24} md={24} lg={8} className="mt-2">
               <Form.Item
-                la
-                bel="Address"
+                label="Address"
                 name="address"
                 required
                 rules={[{ required: true }]}
@@ -79,9 +78,9 @@ const ApplyDoctor = () => {
               </Form.Item>
             </Col>
           </Row>
-          <h4 className=" text-light">Professional Details</h4>
+          <h4 className=" text-dark mt-4">Professional Details</h4>
           <Row gutter={20}>
-            <Col xs={24} md={12} lg={8}>
+            <Col xs={24} md={24} lg={8} className="mt-2">
               <Form.Item
                 label="Specialization"
                 name="specialization"
@@ -91,7 +90,7 @@ const ApplyDoctor = () => {
                 <Input type="text" placeholder="Your specialization" />
               </Form.Item>
             </Col>
-            <Col xs={24} md={12} lg={8}>
+            <Col xs={24} md={24} lg={8} className="mt-2">
               <Form.Item
                 label="Experience"
                 name="experience"
@@ -101,7 +100,7 @@ const ApplyDoctor = () => {
                 <Input type="text" placeholder="Your Experience" />
               </Form.Item>
             </Col>
-            <Col xs={24} md={12} lg={8}>
+            <Col xs={24} md={24} lg={8} className="mt-2">
               <Form.Item
                 label="Fees Per Consultation"
                 name="feesPerConsultation"
@@ -111,23 +110,23 @@ const ApplyDoctor = () => {
                 <Input type="number" placeholder="Your Fees" />
               </Form.Item>
             </Col>
-            <Col xs={24} md={12} lg={8}>
+            <Col xs={24} md={24} lg={8} className="mt-2">
               <Form.Item
-                la
-                bel="Timings"
+                label="Timings"
                 name="timings"
                 required
                 // rules={[{ required: true }]}
               >
-                <TimePicker.RangePicker />
+                <TimePicker.RangePicker format="HH:mm" />
               </Form.Item>
             </Col>
+            <Col xs={24} md={24} lg={8}></Col>
+            <Col xs={24} md={24} lg={8}>
+              <button type="submit" className="btn btn-primary form-btn">
+                Submit
+              </button>
+            </Col>
           </Row>
-          <div className="d-flex justify-content-end">
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
-          </div>
         </Form>
       </Layout>
     </>

@@ -1,7 +1,9 @@
 const userModel = require("../models/userModels");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const doctorModel = require("../models/doctorModel");
 
+// Register controller
 const registerController = async (req, res) => {
   // console.log("In Register controller".bgWhite.white);
   try {
@@ -44,6 +46,7 @@ const registerController = async (req, res) => {
   }
 };
 
+// Login controller
 const loginController = async (req, res) => {
   // Login logic here
   try {
@@ -78,6 +81,7 @@ const loginController = async (req, res) => {
   }
 };
 
+// Auth controller
 const authController = async (req, res) => {
   try {
     // console.log("In Auth Controller".bgGreen.white)
@@ -105,4 +109,45 @@ const authController = async (req, res) => {
     });
   }
 };
-module.exports = { loginController, registerController, authController };
+
+// Apply doctor controller
+const applyDoctorController = async (req, res) => {
+  try {
+    const newDoctor = new doctorModel({
+      ...req.body, // Copy other fields from req.body
+      status: "pending", // Override status with pending
+    });
+    await newDoctor.save();
+
+    const adminUser = await userModel.findOne({ isAdmin: true });
+    const notification = adminUser.notification;
+    notification.push({
+      type: "apply-doctor-request",
+      message: `${newDoctor.firstName} ${newDoctor.lastName} has applied for doctor account`,
+      data: {
+        doctorId: newDoctor._id,
+        name: newDoctor.firstName + " " + newDoctor.lastName,
+        onClickPath: "/admin/doctors",
+      },
+    });
+
+    await userModel.findByIdAndUpdate(adminUser._id, { notification });
+    res.status(201).send({
+      message: "Doctor Application Submitted Successfully",
+      success: true,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Apply Doctor Controller Error",
+      success: false,
+      error,
+    });
+  }
+};
+
+module.exports = {
+  loginController,
+  registerController,
+  authController,
+  applyDoctorController,
+};
