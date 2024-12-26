@@ -1,11 +1,41 @@
 import React from "react";
 import Layout from "../components/Layout";
-import { Form, Col, Input, Row, TimePicker } from "antd";
+import { Form, Col, Input, Row, TimePicker, message } from "antd";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { showLoading, hideLoading } from "../redux/features/alertSlice";
+import axios from "axios";
 
-const ApplyDoctor = () => {
+const ApplyDoctor = async () => {
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   // handle form
-  const handleFinish = (values) => {
-    console.log(values);
+  const handleFinish = async (values) => {
+    try {
+      dispatch(showLoading());
+      const res = await axios.post(
+        "/api/v1/user/apply-doctor",
+        { ...values, userId: user._id },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (res.data.success) {
+        message.success(res.data.success, " Doctor applied successfully");
+        navigate("/");
+      } else {
+        message.error(res.data.message);
+      }
+    } catch (error) {
+      dispatch(hideLoading());
+      console.error(error);
+      message.error("Error in applying doctor");
+    }
   };
 
   return (
