@@ -120,6 +120,7 @@ const applyDoctorController = async (req, res) => {
     await newDoctor.save();
 
     const adminUser = await userModel.findOne({ isAdmin: true });
+    
     const notification = adminUser.notification;
     notification.push({
       type: "apply-doctor-request",
