@@ -18,6 +18,7 @@ const Layout = ({ children }) => {
 
   // redering menu list
   const SidebarMenu = user?.isAdmin ? adminMenu : userMenu;
+  console.log(user?.isAdmin);
   return (
     <>
       <div className="main">

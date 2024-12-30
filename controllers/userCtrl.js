@@ -98,6 +98,7 @@ const authController = async (req, res) => {
         data: {
           name: user.name,
           email: user.email,
+          isAdmin: user.isAdmin,
         },
       });
     }
@@ -143,32 +144,39 @@ const applyDoctorController = async (req, res) => {
       success: false,
       error,
     });
-  } 
+  }
 };
 
 // notification controller
 const getAllNotificationController = async (req, res) => {
   try {
     const user = await userModel.findOne({ _id: req.body.userId });
-    const seenNotification = user.seenNotification;
-    const notification = user.notification;
-    seenNotification.push(...notification);
+
+    // Append notifications to seenNotification
+    user.seenNotification.push(...user.notification);
+
+    // Clear the current notifications
     user.notification = [];
-    user.seenNotification = notification;
+
+    // Save the updated user
     const updatedUser = await user.save();
+
+    // Send success response
     res.status(200).send({
-      message: "All notification marked as read",
+      message: "All notifications marked as read",
       success: true,
       data: updatedUser,
     });
   } catch (error) {
+    // Handle errors
     res.status(500).send({
-      message: "Error in notification",
+      message: "Error in marking notifications as read",
       success: false,
       error,
     });
   }
 };
+
 module.exports = {
   loginController,
   registerController,
