@@ -18,7 +18,8 @@ const Layout = ({ children }) => {
 
   // redering menu list
   const SidebarMenu = user?.isAdmin ? adminMenu : userMenu;
-  console.log(user?.isAdmin);
+  // console.log(user?.isAdmin);
+  // console.log(user?.notification);
   return (
     <>
       <div className="main">
@@ -48,7 +49,7 @@ const Layout = ({ children }) => {
           </div>
           <div className="content">
             <div className="header">
-              <div className="header-content">
+              <div className="header-content " style={{ cursor: "pointer" }}>
                 <Badge
                   count={(user && user?.notification?.length) || 0}
                   onClick={() => {
