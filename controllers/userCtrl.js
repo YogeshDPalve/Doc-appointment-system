@@ -99,6 +99,7 @@ const authController = async (req, res) => {
           name: user.name,
           email: user.email,
           isAdmin: user.isAdmin,
+          notification: user.notification
         },
       });
     }
@@ -121,7 +122,7 @@ const applyDoctorController = async (req, res) => {
     await newDoctor.save();
 
     const adminUser = await userModel.findOne({ isAdmin: true });
-
+    // console.log("adminuser:".bgRed.white, adminUser);
     const notification = adminUser.notification;
     notification.push({
       type: "apply-doctor-request",
@@ -132,7 +133,7 @@ const applyDoctorController = async (req, res) => {
         onClickPath: "/admin/doctors",
       },
     });
-
+    // console.log("notification: ".bgRed.white ,notification);
     await userModel.findByIdAndUpdate(adminUser._id, { notification });
     res.status(201).send({
       message: "Doctor Application Submitted Successfully",
@@ -151,7 +152,7 @@ const applyDoctorController = async (req, res) => {
 const getAllNotificationController = async (req, res) => {
   try {
     const user = await userModel.findOne({ _id: req.body.userId });
-
+    console.log(user.notification);
     // Append notifications to seenNotification
     user.seenNotification.push(...user.notification);
 
