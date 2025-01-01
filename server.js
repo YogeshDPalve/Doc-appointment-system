@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const userRouter = require("./routes/userRoutes");
+const adminRouter = require("./routes/adminRoutes.js");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
@@ -24,6 +25,7 @@ app.use(morgan("dev"));
 app.use(cors());
 app.use(bodyParser.json());
 // routes
+app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/user", userRouter);
 
 // global catch
