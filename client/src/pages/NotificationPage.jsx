@@ -37,7 +37,32 @@ const NotificationPage = () => {
       message.error("somthing went wrong");
     }
   };
-  const handleDeleteAllRead = () => {};
+
+  // delete notifications
+  const handleDeleteAllRead = async () => {
+    try {
+      dispatch(showLoading());
+      const res = await axios.post(
+        "/api/v1/user/delete-all-notification",
+        { userId: user._id },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch(hideLoading());
+
+      if (res.data.success) {
+        message.success(res.data.message);
+      } else {
+        message.error(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      message.error("Something Went Wrong In Notifications");
+    }
+  };
   return (
     <Layout>
       <h4 className="p-3 text-center">Notification Page</h4>
@@ -73,6 +98,16 @@ const NotificationPage = () => {
               Delete All Read
             </h4>
           </div>
+          {user?.seenNotification.map((notificationMgs) => (
+            <div className="card" style={{ cursor: "pointer" }}>
+              <div
+                className="card-text"
+                onClick={() => navigate(notificationMgs.onClickPath)}
+              >
+                {notificationMgs.message}
+              </div>
+            </div>
+          ))}
         </Tabs.TabPane>
       </Tabs>
     </Layout>
