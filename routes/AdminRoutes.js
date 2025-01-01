@@ -7,9 +7,9 @@ const {
 } = require("../controllers/adminCtrl");
 
 // GET MOTHOD || USERS
-router.get("getAllUsers", authMiddleware, getAllUsersController);
+router.get("/getAllUsers", authMiddleware, getAllUsersController);
 
 // GET MOTHOD || DOCTORS
-router.get("getAllDoctors", authMiddleware, getAllDoctorsController);
+router.get("/getAllDoctors", authMiddleware, getAllDoctorsController);
 
 module.exports = router;
