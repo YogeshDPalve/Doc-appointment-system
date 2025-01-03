@@ -16,7 +16,7 @@ const ApplyDoctor = () => {
     try {
       dispatch(showLoading());
       const res = await axios.post(
-        "/api/v1/user/apply-doctor",
+        "/api/v1/doctor/updateProfile",
         { ...values, userId: user._id },
         {
           headers: {
@@ -41,7 +41,12 @@ const ApplyDoctor = () => {
   return (
     <Layout>
       <h1 className="text-center">Apply Doctor</h1>
-      <Form layout="vertical" onFinish={handleFinish} className="m-3">
+      <Form
+        layout="vertical"
+        onFinish={handleFinish}
+        className="m-3"
+        initialValues={doc}
+      >
         <h4 className="text-dark mt-4">Personal Details</h4>
         <Row gutter={20}>
           <Col xs={24} md={24} lg={8} className="mt-2">
