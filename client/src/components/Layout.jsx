@@ -6,9 +6,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { message, Badge } from "antd";
 
-
 const Layout = ({ children }) => {
   const { user } = useSelector((state) => state.user);
+  // console.log(user);
   const location = useLocation();
   const navigate = useNavigate();
   // logout funtion
@@ -18,8 +18,32 @@ const Layout = ({ children }) => {
     navigate("/login");
   };
 
+  // ! ============= doctor menu =============
+  const doctorMenu = [
+    {
+      name: "Home",
+      path: "/",
+      icon: "fa-solid fa-house",
+    },
+    {
+      name: "Appointments",
+      path: "/appointments",
+      icon: "fa-solid fa-list",
+    },
+    {
+      name: "Profile",
+      path: `/doctor/profile/:${user?._id}`,
+      icon: "fa-solid fa-user",
+    },
+  ];
+
   // redering menu list
-  const SidebarMenu = user?.isAdmin ? adminMenu : userMenu;
+  const SidebarMenu = user?.isAdmin
+    ? adminMenu
+    : user?.isDoctor
+    ? doctorMenu
+      : userMenu;
+  
   // console.log(user?.isAdmin);
   // console.log(user?.notification);
   return (

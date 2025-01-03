@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 
 const doctroSchema = new mongoose.Schema(
   {
+    userId: {
+      type: String,
+    },
     firstName: {
       type: String,
       required: [true, "first name is required"],
