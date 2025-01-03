@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const userRouter = require("./routes/userRoutes");
 const adminRouter = require("./routes/adminRoutes.js");
+const doctorRouter = require("./routes/doctorRoutes.js");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
@@ -27,6 +28,7 @@ app.use(bodyParser.json());
 // routes
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/doctor", doctorRouter);
 
 // global catch
 app.use((err, req, res, next) => {

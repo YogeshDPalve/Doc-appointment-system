@@ -6,14 +6,14 @@ const getAllUsersController = async (req, res) => {
     const users = await userModel.find({});
     res.status(200).send({
       success: true,
-      message: "All Users Data List",
+      message: "users data list",
       data: users,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error while Getting Users Data",
+      message: "erorr while fetching users",
       error,
     });
   }
@@ -24,19 +24,20 @@ const getAllDoctorsController = async (req, res) => {
     const doctors = await doctorModel.find({});
     res.status(200).send({
       success: true,
-      message: "Doctors Data List",
+      message: "Doctors Data list",
       data: doctors,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error while Getting Doctors Data",
+      message: "error while getting doctors data",
       error,
     });
   }
 };
 
+// doctor account status
 const changeAccountStatusController = async (req, res) => {
   try {
     const { doctorId, status } = req.body;
@@ -45,29 +46,30 @@ const changeAccountStatusController = async (req, res) => {
     const notification = user.notification;
     notification.push({
       type: "doctor-account-request-updated",
-      message: `Your account status has been updated to ${status}`,
+      message: `Your Doctor Account Request Has ${status} `,
       onClickPath: "/notification",
     });
-
-    user.isDoctor === "apporoved" ? true : false;
+    //
+    // Update user status based on doctor's status
+    user.isDoctor = status === "approved";
     await user.save();
-    res.status(200).send({
-      succcess: true,
-      message: "Account Status Changed Successfully",
+    res.status(201).send({
+      success: true,
+      message: "Account Status Updated",
       data: doctor,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error while Changing Account Status",
+      message: "Eror in Account Status",
       error,
     });
   }
 };
 
 module.exports = {
-  getAllUsersController,
   getAllDoctorsController,
+  getAllUsersController,
   changeAccountStatusController,
 };

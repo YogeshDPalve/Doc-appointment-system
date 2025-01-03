@@ -95,13 +95,7 @@ const authController = async (req, res) => {
     } else {
       res.status(200).send({
         success: true,
-        data: {
-          name: user.name,
-          email: user.email,
-          isAdmin: user.isAdmin,
-          notification: user.notification,
-          seenNotification: user.seenNotification,
-        },
+        data: user,
       });
     }
   } catch (error) {
@@ -153,7 +147,7 @@ const applyDoctorController = async (req, res) => {
 const getAllNotificationController = async (req, res) => {
   try {
     const user = await userModel.findOne({ _id: req.body.userId });
-    console.log(user.notification);
+    // console.log(user.notification);
     // Append notifications to seenNotification
     user.seenNotification.push(...user.notification);
 
