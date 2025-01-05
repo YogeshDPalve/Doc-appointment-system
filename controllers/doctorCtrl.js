@@ -27,7 +27,7 @@ const updateProfileController = async (req, res) => {
     );
     res.status(201).send({
       success: true,
-      message:"Doctor Profile Updated",
+      message: "Doctor Profile Updated",
       data: doctor,
     });
   } catch (error) {
@@ -39,4 +39,28 @@ const updateProfileController = async (req, res) => {
     });
   }
 };
-module.exports = { getDoctorInfoController, updateProfileController };
+
+// get single doctor controller
+const getDoctorByIdController = async (req, res) => {
+  try {
+    const doctor = await doctorModel.findOne({ _id: req.body.doctorId });
+    // console.log(doctor);
+    res.status(200).send({
+      success: true,
+      message: "Single doctor fetch successfully",
+      data: doctor,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Single doctor info",
+      error,
+    });
+  }
+};
+module.exports = {
+  getDoctorInfoController,
+  updateProfileController,
+  getDoctorByIdController,
+};
