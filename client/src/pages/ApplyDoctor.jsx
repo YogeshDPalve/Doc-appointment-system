@@ -45,7 +45,7 @@ const ApplyDoctor = () => {
         layout="vertical"
         onFinish={handleFinish}
         className="m-3"
-        initialValues={doc}
+        // initialValues={doc}
       >
         <h4 className="text-dark mt-4">Personal Details</h4>
         <Row gutter={20}>

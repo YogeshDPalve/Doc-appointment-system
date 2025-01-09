@@ -7,7 +7,7 @@ const {
   getAllNotificationController,
   deleteAllNotificationController,
   getAllDoctorsController,
-  bookeAppointmnetController,
+  bookAppointmentController,
   bookingAvailabilityController,
   userAppointmentsController,
 } = require("../controllers/userCtrl");
@@ -48,7 +48,7 @@ router.post(
 router.get("/getAllDoctors", authMiddleware, getAllDoctorsController);
 
 // book appointments
-router.post("/book-appointment", authMiddleware, bookeAppointmnetController);
+router.post("/book-appointment", authMiddleware, bookAppointmentController);
 
 // booking availability
 router.post(

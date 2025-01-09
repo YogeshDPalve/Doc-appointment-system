@@ -220,34 +220,42 @@ const getAllDoctorsController = async (req, res) => {
 };
 
 // book appointment controller
-const bookeAppointmnetController = async (req, res) => {
-  try {
-    req.body.date = moment(req.body.date, "DD-MM-YYY").toISOString();
-    req.body.time == moment(req.body.time, "HH:mm").toISOString();
+const bookAppointmentController = async (req, res) => {
+  console.log("Raw Date:", req.body.date);
+  console.log("Raw Time:", req.body.time);
 
+  try {
+    // Correct date and time format conversion
+    req.body.date = moment(req.body.date, "DD-MM-YYYY").toISOString();
+    req.body.time = moment(req.body.time, "HH:mm").format("HH:mm");
+
+    // Set appointment status
     req.body.status = "pending";
 
+    // Create and save the new appointment
     const newAppointment = new appointmentModel(req.body);
     await newAppointment.save();
 
+    // Fetch the doctor and update notifications
     const user = await userModel.findOne({ _id: req.body.doctorInfo.userId });
-
     user.notification.push({
       type: "New-appointment-request",
       message: `A New Appointment Request from ${req.body.userInfo.name}`,
-      onCLickPath: "/user/appointments",
+      onClickPath: "/user/appointments",
     });
     await user.save();
+
+    // Send success response
     res.status(200).send({
       success: true,
-      message: "Appointment Book succesfully",
+      message: "Appointment booked successfully",
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
       error,
-      message: "Error While Booking Apointment",
+      message: "Error While Booking Appointment",
     });
   }
 };
@@ -321,7 +329,7 @@ module.exports = {
   getAllNotificationController,
   deleteAllNotificationController,
   getAllDoctorsController,
-  bookeAppointmnetController,
+  bookAppointmentController,
   bookingAvailabilityController,
   userAppointmentsController,
 };
